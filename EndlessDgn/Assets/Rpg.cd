@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Ability" Collapsed="true">
+    <Position X="2" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAAAARAAAAAAAQAIIAAAAAgQAAAAIAAAEA=</HashCode>
+      <FileName>Assets\Abilities\Ability.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Heal" Collapsed="true">
+    <Position X="0.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAAAAAAAAIAAAAAAAAAAAAIAAAEA=</HashCode>
+      <FileName>Assets\Abilities\Heal.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HeroicStrike" Collapsed="true">
+    <Position X="2.25" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAAAAAAAAIAAAAAAAAAAAAIAAAEA=</HashCode>
+      <FileName>Assets\Abilities\HeroicStrike.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NormalAttack" Collapsed="true">
+    <Position X="4" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAAAAAAAAIAAAAAAAAAAAAIAAAEA=</HashCode>
+      <FileName>Assets\Abilities\NormalAttack.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Creator" Collapsed="true">
+    <Position X="6.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAgAERAAAEgIAAAAAQAAAAAIAAAAAAAAAAABEA=</HashCode>
+      <FileName>Assets\Creatures\Creator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Creatures" Collapsed="true">
+    <Position X="8.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAEAAAAAAAAICAACAAQAAhAAAAQAAAAIQAAAAAA=</HashCode>
+      <FileName>Assets\Creatures\Creatures.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Hero" Collapsed="true">
+    <Position X="7" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AkAQAAAAAAAARBAAgEACAAAAQgIAAAAgAIAAwAAQEEA=</HashCode>
+      <FileName>Assets\Creatures\Hero.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Monsters" Collapsed="true">
+    <Position X="9" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAACAAAAAgAAGAAAAAAAAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Creatures\Monsters.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Skeleton" Collapsed="true">
+    <Position X="8.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAACAAAAAgAAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>Assets\Creatures\Skeleton.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Spider" Collapsed="true">
+    <Position X="10.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAACAAAAAgAAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>Assets\Creatures\Spider.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BossRoom" Collapsed="true">
+    <Position X="0.5" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Rooms\BossRoom.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DgnInfo" Collapsed="true">
+    <Position X="0.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAACAAAA=</HashCode>
+      <FileName>Assets\Rooms\DgnInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RoomType" Collapsed="true">
+    <Position X="2.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAAKAAAAAAAgAQwBAAAAAAAAIBAAAAAAAg=</HashCode>
+      <FileName>Assets\Rooms\RoomType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Treasury" Collapsed="true">
+    <Position X="2.25" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Rooms\Treasury.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OrdRoom" Collapsed="true">
+    <Position X="4" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Rooms\OrdRoom.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ItemType" Collapsed="true">
+    <Position X="8" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAYAAggIAAQBIAAIAARBAABAAABAAIAAIAAABAA=</HashCode>
+      <FileName>Assets\Inventory\ItemType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Necklace" Collapsed="true">
+    <Position X="6" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Inventory\Necklace.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Weapon" Collapsed="true">
+    <Position X="8" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAAAAAAEAAAgBAAABgAAAAA=</HashCode>
+      <FileName>Assets\Inventory\Weapon.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Armour" Collapsed="true">
+    <Position X="10.25" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAiAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Inventory\Armour.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
