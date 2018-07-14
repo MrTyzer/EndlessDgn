@@ -11,9 +11,6 @@ public class MouseController : MonoBehaviour
     [SerializeField]
     private Camera _camera;
 
-    //[serializefield]
-    //private gameobject scircle;
-
     private Text _stats;
     
 
@@ -39,10 +36,10 @@ public class MouseController : MonoBehaviour
                     _stats.text = hitObject.GetComponent<Creatures>().ShowStats();
                     StatsWindow.SetActive(true);
                 }
-                else
-                {
-                    StatsWindow.SetActive(false);
-                }
+            }
+            else
+            {
+                StatsWindow.SetActive(false);
             }
         }
         else if (Input.GetMouseButtonDown(0) && GUICountroller.SelectionLock && !GUICountroller.AnimationLock)
