@@ -137,8 +137,6 @@ public class Hero : Creatures
 	/// </summary>
     public Necklace NeckSlot { get; private set; }
 
-    
-
     /// <summary>
     /// метод одевания шмотки
     /// </summary>

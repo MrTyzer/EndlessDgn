@@ -36,7 +36,6 @@ public class AnimController : MonoBehaviour
     /// </summary>
     private Dictionary<Creatures, Ability.ResultOfAbility> _abilityInfo = new Dictionary<Creatures, Ability.ResultOfAbility>();
 
-
     private void Awake()
     {
         Messenger<Dictionary<Creatures, Ability.ResultOfAbility>>.AddListener(GameEvent.ABILITY_INFO, AbilityEventHandler);
@@ -70,7 +69,6 @@ public class AnimController : MonoBehaviour
     /// </summary>
     private void OnAttackMoment()
     {
-
         foreach (KeyValuePair<Creatures, Ability.ResultOfAbility> c in _abilityInfo)
         {
             if (c.Value.Value != 0)
@@ -123,13 +121,11 @@ public class AnimController : MonoBehaviour
             EnergyBars[i].UpdateBar(room.HeroesAndMobs[i].GetResultStat(Stats.TurnLine),
                 Game.TurnLineMaxValue);
         }
-
         foreach (KeyValuePair<Creatures, SimpleHealthBar> c in _creaturesHp)
         {
             c.Value.UpdateBar(c.Key.GetComponent<Creatures>().GetResultStat(Stats.Hp),
                         c.Key.GetComponent<Creatures>().GetResultStat(Stats.MaxHp));
         }
-
     }
 
     private void AbilityEventHandler(Dictionary<Creatures, Ability.ResultOfAbility> abilityInfo)

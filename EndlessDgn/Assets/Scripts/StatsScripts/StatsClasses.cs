@@ -16,7 +16,7 @@ public class Stat
         StatName = name;
         Value = value;
     }
- 
+    
     /// <summary>
     /// добавляет величину value к параметру
     /// </summary>
@@ -31,11 +31,11 @@ public class Stat
 
 public class Hp : Stat
 {
-    private Stat MaxHp;
+    private Stat _maxHp;
 
     public Hp(Stat maxHp) : base(Stats.Hp, maxHp.Value)
     {
-        MaxHp = maxHp;
+        _maxHp = maxHp;
     }
 
     public override void ChangeStat(int value)
@@ -43,8 +43,8 @@ public class Hp : Stat
         Value += value;
         if (Value < 0)
             Value = 0;
-        else if (Value > MaxHp.Value)
-            Value = MaxHp.Value;
+        else if (Value > _maxHp.Value)
+            Value = _maxHp.Value;
     }
 
 }
@@ -54,8 +54,8 @@ public class Hp : Stat
 /// </summary>
 public class Strength : Stat
 {
-    private Stat MinDmg;
-    private Stat MaxDmg;
+    private Stat _minDmg;
+    private Stat _maxDmg;
     /// <summary>
     /// множитель dmg для силы
     /// </summary>
@@ -63,10 +63,10 @@ public class Strength : Stat
 
     public Strength(int value, Stat mindmg, Stat maxdmg) : base(Stats.Strength, value)
     {
-        MinDmg = mindmg;
-        MaxDmg = maxdmg;
-        MinDmg.ChangeStat(value * StrMod);
-        MaxDmg.ChangeStat(value * StrMod);
+        _minDmg = mindmg;
+        _maxDmg = maxdmg;
+        _minDmg.ChangeStat(value * StrMod);
+        _maxDmg.ChangeStat(value * StrMod);
     }
 
     public override void ChangeStat(int value)
@@ -74,8 +74,8 @@ public class Strength : Stat
         Value += value;
         if (Value < 0)
             Value = 0;
-        MinDmg.ChangeStat(value * StrMod);
-        MaxDmg.ChangeStat(value * StrMod);
+        _minDmg.ChangeStat(value * StrMod);
+        _maxDmg.ChangeStat(value * StrMod);
     }
 }
 
@@ -84,8 +84,8 @@ public class Strength : Stat
 /// </summary>
 public class Agility : Stat
 {
-    private Stat Accuracy;
-    private Stat Dodge;
+    private Stat _accuracy;
+    private Stat _dodge;
     /// <summary>
 	/// множитель acc/dodge для ловкости
 	/// </summary>
@@ -93,10 +93,10 @@ public class Agility : Stat
 
     public Agility(int value, Stat accuracy, Stat dodge) : base(Stats.Agility, value)
     {
-        Accuracy = accuracy;
-        Dodge = dodge;
-        Accuracy.ChangeStat(value * AgiMod);
-        Dodge.ChangeStat(value * AgiMod);
+        _accuracy = accuracy;
+        _dodge = dodge;
+        _accuracy.ChangeStat(value * AgiMod);
+        _dodge.ChangeStat(value * AgiMod);
     }
 
     public override void ChangeStat(int value)
@@ -104,8 +104,8 @@ public class Agility : Stat
         Value += value;
         if (Value < 0)
             Value = 0;
-        Accuracy.ChangeStat(value * AgiMod);
-        Dodge.ChangeStat(value * AgiMod);
+        _accuracy.ChangeStat(value * AgiMod);
+        _dodge.ChangeStat(value * AgiMod);
     }
 }
 
@@ -114,8 +114,8 @@ public class Agility : Stat
 /// </summary>
 public class Stamina : Stat
 {
-    private Stat MaxHp;
-    private Stat Hp;
+    private Stat _maxHp;
+    private Stat _hp;
     /// <summary>
 	/// множитель хп для стамины
 	/// </summary>
@@ -123,10 +123,10 @@ public class Stamina : Stat
 
     public Stamina(int value, Stat maxHp, Stat hp) : base(Stats.Stamina, value)
     {
-        Hp = hp;
-        MaxHp = maxHp;
-        MaxHp.ChangeStat(value * StamMod);
-        Hp.ChangeStat(value * StamMod);
+        _hp = hp;
+        _maxHp = maxHp;
+        _maxHp.ChangeStat(value * StamMod);
+        _hp.ChangeStat(value * StamMod);
     }
 
     public override void ChangeStat(int value)
@@ -134,8 +134,8 @@ public class Stamina : Stat
         Value += value;
         if (Value < 0)
             Value = 0;
-        MaxHp.ChangeStat(value * StamMod);
-        if (MaxHp.Value < Hp.Value)
-        Hp.ChangeStat(MaxHp.Value - Hp.Value);
+        _maxHp.ChangeStat(value * StamMod);
+        if (_maxHp.Value < _hp.Value)
+        _hp.ChangeStat(_maxHp.Value - _hp.Value);
     }
 }
