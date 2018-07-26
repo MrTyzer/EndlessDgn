@@ -11,7 +11,6 @@ public class GUICountroller : MonoBehaviour
     public GameObject SelectionCirclePrefab;
     public AbilityButton[] AbilityButtons;
 
-
     /// <summary>
     /// блок интерфейса при выборе таргета для атаки
     /// </summary>
