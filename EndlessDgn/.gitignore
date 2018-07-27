@@ -1,3 +1,6 @@
 /.vs/
 /Temp/
 /Library/
+/Assembly-CSharp-Editor.csproj
+/Assembly-CSharp.csproj
+/EndlessDgn.suo

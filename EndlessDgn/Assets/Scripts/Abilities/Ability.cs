@@ -11,17 +11,6 @@ public abstract class Ability
     public int Cooldown { set; get; }
 
     /// <summary>
-    /// метод возвращает возможные цели для способности
-    /// </summary>
-    /// <returns></returns>
-    public abstract List<Creatures> GetAvailableTargets(RoomType room, Creatures user);
-
-    /// <summary>
-    /// возвращает true, если способность можно использовать на данный таргет
-    /// </summary>
-    public abstract bool IsAvailable(Creatures user, Creatures target);
-
-    /// <summary>
     /// Результат применения способности на конкретном существе
     /// </summary>
     public struct ResultOfAbility
@@ -42,12 +31,21 @@ public abstract class Ability
         }
     }
 
+    /// <summary>
+    /// метод возвращает возможные цели для способности
+    /// </summary>
+    /// <returns></returns>
+    public abstract List<Creatures> GetAvailableTargets(RoomType room, Creatures user);
+
+    /// <summary>
+    /// возвращает true, если способность можно использовать на данный таргет
+    /// </summary>
+    public abstract bool IsAvailable(Creatures user, Creatures target);
 
     public Ability(Creatures owner)
     {
         Owner = owner;
     }
-
 
     public abstract void UseAbility(Creatures target, Creatures user, RoomType room);
 
@@ -106,5 +104,4 @@ public abstract class Ability
     }
 
     public abstract string AbilityInfoShow();
-
 }
