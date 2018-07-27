@@ -1,4 +1,4 @@
-﻿namespace Interface
+﻿namespace StateMachine
 {
     /// <summary>
     /// перечисление всех возможных состояний меню
