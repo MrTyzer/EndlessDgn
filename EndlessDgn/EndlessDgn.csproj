@@ -413,6 +413,11 @@
     <Compile Include="Assets\Scripts\GUICountroller.cs" />
     <Compile Include="Assets\Scripts\HpBarPosition.cs" />
     <Compile Include="Assets\Scripts\IconsManager.cs" />
+    <Compile Include="Assets\Scripts\Interface\Enums.cs" />
+    <Compile Include="Assets\Scripts\Interface\IStateMachine.cs" />
+    <Compile Include="Assets\Scripts\Interface\IStateMachineFactory.cs" />
+    <Compile Include="Assets\Scripts\Interface\MenuStateMachine.cs" />
+    <Compile Include="Assets\Scripts\Interface\State.cs" />
     <Compile Include="Assets\Scripts\Inventory\Armour.cs" />
     <Compile Include="Assets\Scripts\Inventory\ItemType.cs" />
     <Compile Include="Assets\Scripts\Inventory\Necklace.cs" />
@@ -427,7 +432,6 @@
     <Compile Include="Assets\Scripts\SelectCircle.cs" />
     <Compile Include="Assets\Scripts\StatsScripts\StatsClasses.cs" />
     <Compile Include="Assets\Scripts\Text1.cs" />
-    <Compile Include="Assets\Scripts\UICursor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Rpg.cd" />

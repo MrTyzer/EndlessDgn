@@ -39,11 +39,14 @@ namespace StateMachine
             _states.Remove(name);
         }
 
-        public void SwitchState(States nextState)
+        public void SwitchState(States nextState, bool noExit = false)
         {
             if (_currentState.ChildStates.ContainsKey(nextState))
             {
-                _currentState.OnExit();
+                if (!noExit)
+                {
+                    _currentState.OnExit();
+                }
                 _currentState.ChildStates[nextState].OnEnter();
                 _currentState = _states[nextState];
             }
