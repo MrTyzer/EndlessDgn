@@ -7,7 +7,7 @@ public class MouseController : MonoBehaviour
 {
     public GameObject StatsWindow;
 
-    public GUICountroller GUICountrollerScript;
+    public GUIController GUICountrollerScript;
     [SerializeField]
     private Camera _camera;
 
@@ -22,7 +22,7 @@ public class MouseController : MonoBehaviour
 
     private void Update ()
     {
-        if (Input.GetMouseButtonDown(0) && !GUICountroller.SelectionLock)
+        if (Input.GetMouseButtonDown(0) && !GUIController.SelectionLock)
         {
             Ray ray1 = _camera.ScreenPointToRay(Input.mousePosition);
             RaycastHit Hit;
@@ -42,7 +42,7 @@ public class MouseController : MonoBehaviour
                 StatsWindow.SetActive(false);
             }
         }
-        else if (Input.GetMouseButtonDown(0) && GUICountroller.SelectionLock && !GUICountroller.AnimationLock)
+        else if (Input.GetMouseButtonDown(0) && GUIController.SelectionLock && !GUIController.AnimationLock)
         {
             //select target
             Ray ray1 = _camera.ScreenPointToRay(Input.mousePosition);
@@ -53,7 +53,7 @@ public class MouseController : MonoBehaviour
                 Creatures target = hitObject.GetComponent<Creatures>();
                 if (target != null)
                 {
-                    if (GUICountroller.SelectedAbility.IsAvailable(GUICountroller.CurrentHero, target))
+                    if (GUIController.SelectedAbility.IsAvailable(GUIController.CurrentHero, target))
                         GUICountrollerScript.SetTarget(target);
                     else
                         GUICountrollerScript.DisactivateAbility();

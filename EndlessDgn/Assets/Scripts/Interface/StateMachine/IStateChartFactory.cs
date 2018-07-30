@@ -1,12 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-
-namespace StateMachine
+﻿namespace StateMachine
 {
     /// <summary>
     /// интерфейс для добавления и удаления стейтов
     /// </summary>
-    public interface IStateMachineFactory
+    public interface IStateChartFactory
     {
         /// <summary>
         /// добавляет стейт в стейтмашину

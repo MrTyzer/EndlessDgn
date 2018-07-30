@@ -1,15 +1,15 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.UI;
-using UnityEngine.EventSystems;
+using StateMachine;
 
-public class GUICountroller : MonoBehaviour
+public class GUIController : MonoBehaviour
 {
     public GameObject SelectFrame;
     public GameObject AbilityBar;
     public GameObject SelectionCirclePrefab;
     public AbilityButton[] AbilityButtons;
+
+    private IStateChart _guiStateChart;
 
     /// <summary>
     /// блок интерфейса при выборе таргета для атаки
@@ -29,7 +29,8 @@ public class GUICountroller : MonoBehaviour
     void Awake()
     {
         Messenger<Hero, RoomType>.AddListener(GameEvent.HERO_TURN, OnHeroTurn);
-        AbilityBar.SetActive(false);
+        _guiStateChart = StateChartFactory.GetSCInterface(this);
+        //AbilityBar.SetActive(false);
     }
 
     /// <summary>
@@ -44,23 +45,23 @@ public class GUICountroller : MonoBehaviour
     /// </summary>
     private void OnHeroTurn(Hero hero, RoomType room)
     {
-        AnimationLock = false;
-        AbilityBar.SetActive(true);
-        int i = 0;
         CurrentHero = hero;
         CurrentRoom = room;
-        foreach (Ability h in hero.SpellBook)
-        {
-            AbilityButtons[i].gameObject.SetActive(true);
-            AbilityButtons[i].AbilityShow(h);
-            i++;
-        }
+        _guiStateChart.SwitchState(States.Idle);
+        AnimationLock = false;
+        //AbilityBar.SetActive(true);
+        //int i = 0;
+        //foreach (Ability h in hero.SpellBook)
+        //{
+        //    AbilityButtons[i].gameObject.SetActive(true);
+        //    AbilityButtons[i].AbilityShow(h);
+        //    i++;
+        //}
     }
 
     /// <summary>
     /// установка способности(берется из класса AbilityButton)
     /// </summary>
-    /// <param name="ability"></param>
     public void SetAbility(Ability ability)
     {
         TurnOffAllSelectCircles();
@@ -104,9 +105,8 @@ public class GUICountroller : MonoBehaviour
     }
 
     /// <summary>
-    /// метод установки таргета(ввести ограничения, которые будут храниться в способностях
+    /// метод установки таргета(ввести ограничения, которые будут храниться в способностях)
     /// </summary>
-    /// <param name="target"></param>
     public void SetTarget(Creatures target)
     {
         if (target.Alive)
@@ -121,8 +121,9 @@ public class GUICountroller : MonoBehaviour
     /// </summary>
     private void UseAbility()
     {
+        _guiStateChart.BackToParent();
         AnimationLock = true;
-        AbilityBar.SetActive(false);
+        //AbilityBar.SetActive(false);
         SelectFrame.SetActive(false);
         SelectedAbility.UseAbility(SelectedTarget, CurrentHero, CurrentRoom);
         Messenger<GameObject>.Broadcast(GameEvent.ENEMY_HIT, SelectedTarget.gameObject);

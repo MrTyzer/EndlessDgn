@@ -6,7 +6,7 @@ using Enums;
 /// <summary>
 /// базовый класс для всех персонажей игры (и монстров и героев)
 /// </summary>
-public abstract class Creatures : MonoBehaviour
+public abstract class Creatures : MonoBehaviour, IStats
 {
     public bool Alive { get; protected set; }
     public List<Ability> SpellBook { get; protected set; }

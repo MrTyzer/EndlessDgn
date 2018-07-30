@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace StateMachine
 {
@@ -17,16 +18,12 @@ namespace StateMachine
         /// </summary>
         public State(State parent, States name)
         {
-            AddParent(parent);
             Name = name;
-        }
-
-        /// <summary>
-        /// конструктор стейта, у которого нет родителя
-        /// </summary>
-        public State(States name)
-        {
-            Name = name;
+            ChildStates = new Dictionary<States, State>();
+            if (parent != null)
+            {
+                AddParent(parent);
+            }
         }
 
         /// <summary>
@@ -35,7 +32,7 @@ namespace StateMachine
         private void AddParent(State parent)
         {
             ParentState = parent;
-            parent.ChildStates.Add(Name, this);
+            parent.ChildStates.Add(this.Name, this);
         }
 
         /// <summary>

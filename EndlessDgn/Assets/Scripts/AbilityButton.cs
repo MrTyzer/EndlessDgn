@@ -10,7 +10,7 @@ public class AbilityButton : MonoBehaviour
     public GameObject MowingWindow;
     public Image Icon;
 
-    public GUICountroller GUICountrollerScript;
+    public GUIController GUICountrollerScript;
 
     private Ability _abilityRef;
 
@@ -52,7 +52,7 @@ public class AbilityButton : MonoBehaviour
 
     public void OnClick()
     {
-        GUICountroller.SelectionLock = true;
+        GUIController.SelectionLock = true;
         SelectFrame.transform.position = transform.position;
         SelectFrame.SetActive(true);
         GUICountrollerScript.SetAbility(_abilityRef);

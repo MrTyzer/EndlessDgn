@@ -1,32 +1,34 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace StateMachine
 {
     /// <summary>
-    /// машина состояний для создания меню(главного и возможно внутриигрового)
+    /// машина состояний
     /// </summary>
-    public sealed class MenuStateMachine : IStateMachine, IStateMachineFactory
+    public class StateChart : IStateChart, IStateChartFactory
     {
         /// <summary>
         /// массив состояний, соответствующий всем вкладкам меню
         /// </summary>
-        private Dictionary<States, State> _states;
+        private Dictionary<States, State> _states = new Dictionary<States, State>();
 
         /// <summary>
         /// начальное состояние стейтмашины(вкладка меню)
         /// </summary>
         private State _currentState;
 
-        public MenuStateMachine(Dictionary<States, State> states, State currentState)
+        public StateChart(List<State> states, State currentState)
         {
             _currentState = currentState;
-            _states = states;
+            foreach (State s in states)
+            {
+                _states[s.Name] = s;
+            }
             _currentState.OnEnter();
         }
 
-        #region IStateMashine methods
+        #region IStateMashineFactory methods
 
         public void AddState(States name, State state)
         {
@@ -38,6 +40,10 @@ namespace StateMachine
             _states[name].ParentState.ChildStates.Remove(name);//убираем стейт из коллекции дочерних стейтов у стейта-родителя
             _states.Remove(name);
         }
+
+        #endregion
+
+        #region IStateMashine methods
 
         public void SwitchState(States nextState, bool noExit = false)
         {
@@ -57,12 +63,15 @@ namespace StateMachine
         }
 
 
-        public void BackToParent()
+        public void BackToParent(bool noEnter = false)
         {
             if (_currentState.ParentState != null)
             {
                 _currentState.OnExit();
-                _currentState.ParentState.OnEnter();
+                if (!noEnter)
+                {
+                    _currentState.ParentState.OnEnter();
+                }
                 _currentState = _currentState.ParentState;
             }
             else

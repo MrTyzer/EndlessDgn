@@ -1,25 +1,25 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-
-namespace StateMachine
+﻿namespace StateMachine
 {
     /// <summary>
     /// интерфейс для управления стейтмашиной
     /// </summary>
-    public interface IStateMachine
+    public interface IStateChart
     {
         /// <summary>
         /// метод, переводящий стейтмашину в состояние <paramref name="nextState"/> 
         /// </summary>
         /// <param name="noExit">
-        /// При true - не выходит из предыдущего стейта
+        /// При true - не вызывает OnExit предыдущего стейта
         /// </param>
         void SwitchState(States nextState, bool noExit = false);
 
         /// <summary>
         /// метод, переводящий стейтмашину в предыдущее состояние
         /// </summary>
-        void BackToParent();
+        /// <param name="noEnter">
+        /// При true - не вызывает OnEnter родителя
+        /// </param>
+        void BackToParent(bool noEnter = false);
     }
 }
 
