@@ -166,3 +166,5 @@ D:\Imp\UnityProjects\EndlessDgn_main\EndlessDgn\obj\Debug\Assembly-CSharp.csproj
 D:\Imp\UnityProjects\EndlessDgn_main\EndlessDgn\obj\Debug\Assembly-CSharp.csproj.CopyComplete
 D:\Imp\UnityProjects\EndlessDgn_main\EndlessDgn\obj\Debug\Assembly-CSharp.dll
 D:\Imp\UnityProjects\EndlessDgn_main\EndlessDgn\obj\Debug\Assembly-CSharp.pdb
+D:\Imp\UnityProjects\EndlessDgn_main\EndlessDgn\Temp\bin\Debug\UnityEditor.UI.dll
+D:\Imp\UnityProjects\EndlessDgn_main\EndlessDgn\Temp\bin\Debug\UnityEditor.UI.xml

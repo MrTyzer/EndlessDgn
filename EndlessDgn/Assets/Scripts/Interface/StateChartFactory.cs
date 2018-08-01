@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using StateMachine;
+using UnityEngine;
 
 /// <summary>
 /// класс для создания диаграмм состояний
@@ -9,11 +10,11 @@ public static class StateChartFactory
     /// <summary>
     /// метод для создания диаграммы состояний интерфейса
     /// </summary>
-    public static IStateChart GetSCInterface(GUIController controller)
+    public static IStateChart GetInterfaceSC(GUIController controller, Camera camera)
     {
         State noInterface = new NoInterface(null, States.NoInterface, controller);
         State idle = new Idle(noInterface, States.Idle, controller);
-        State selectTarget = new SelectTarget(idle, States.SelectTarget, controller);
+        State selectTarget = new SelectTarget(idle, States.SelectTarget, controller, camera);
         State takeStats = new TakeStats(idle, States.TakeStats, controller);
 
         List<State> states = new List<State>()

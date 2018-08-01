@@ -2,8 +2,6 @@
 using UnityEngine;
 using StateMachine;
 
-
-
 public class Idle : InterfaceState
 {
     public Idle(State parent, States name, GUIController mainController) : base(parent, name, mainController)
@@ -22,9 +20,19 @@ public class Idle : InterfaceState
         }
     }
 
+    public override void OnEnterExt()
+    {
+        throw new System.NotImplementedException();
+    }
+
     public override void OnExit()
     {
         _mainController.AbilityBar.SetActive(false);
+    }
+
+    public override void OnExitExt()
+    {
+        throw new System.NotImplementedException();
     }
 }
 

@@ -41,9 +41,19 @@ namespace StateMachine
         public abstract void OnEnter();
 
         /// <summary>
+        /// расширение (необязательное) для метода входа в стейт (выполняется после OnEnter)
+        /// </summary>
+        public abstract void OnEnterExt();
+
+        /// <summary>
         /// метод выхода из стейта
         /// </summary>
         public abstract void OnExit();
+        
+        /// <summary>
+        /// расширение (необязательное) для метода выхода из стейта (выполняется после OnExit)
+        /// </summary>
+        public abstract void OnExitExt();
     }
 }
 

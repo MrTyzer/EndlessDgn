@@ -45,15 +45,18 @@ namespace StateMachine
 
         #region IStateMashine methods
 
-        public void SwitchState(States nextState, bool noExit = false)
+        public void SwitchState(States nextState, bool exitExt = false, bool enterExt = false)
         {
             if (_currentState.ChildStates.ContainsKey(nextState))
             {
-                if (!noExit)
-                {
-                    _currentState.OnExit();
-                }
+                _currentState.OnExit();
+                if (exitExt)
+                    _currentState.OnExitExt();
+
                 _currentState.ChildStates[nextState].OnEnter();
+                if (enterExt)
+                    _currentState.ChildStates[nextState].OnEnterExt();
+
                 _currentState = _states[nextState];
             }
             else
@@ -62,16 +65,18 @@ namespace StateMachine
             }
         }
 
-
-        public void BackToParent(bool noEnter = false)
+        public void BackToParent(bool exitExt = false, bool enterExt = false)
         {
             if (_currentState.ParentState != null)
             {
                 _currentState.OnExit();
-                if (!noEnter)
-                {
-                    _currentState.ParentState.OnEnter();
-                }
+                if (exitExt)
+                    _currentState.OnExitExt();
+
+                _currentState.ParentState.OnEnter();
+                if (enterExt)
+                    _currentState.ParentState.OnEnterExt();
+
                 _currentState = _currentState.ParentState;
             }
             else

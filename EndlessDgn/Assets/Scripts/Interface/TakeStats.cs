@@ -14,7 +14,17 @@ public class TakeStats : InterfaceState
         throw new System.NotImplementedException();
     }
 
+    public override void OnEnterExt()
+    {
+        throw new System.NotImplementedException();
+    }
+
     public override void OnExit()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void OnExitExt()
     {
         throw new System.NotImplementedException();
     }

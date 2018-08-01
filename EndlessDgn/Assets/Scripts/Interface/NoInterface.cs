@@ -13,7 +13,17 @@ public class NoInterface : InterfaceState
     {
     }
 
+    public override void OnEnterExt()
+    {
+        throw new System.NotImplementedException();
+    }
+
     public override void OnExit()
     {
+    }
+
+    public override void OnExitExt()
+    {
+        throw new System.NotImplementedException();
     }
 }

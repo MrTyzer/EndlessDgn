@@ -7,7 +7,9 @@ public class GUIController : MonoBehaviour
     public GameObject SelectFrame;
     public GameObject AbilityBar;
     public GameObject SelectionCirclePrefab;
+    public Camera GUICamera;
     public AbilityButton[] AbilityButtons;
+    
 
     private IStateChart _guiStateChart;
 
@@ -29,7 +31,7 @@ public class GUIController : MonoBehaviour
     void Awake()
     {
         Messenger<Hero, RoomType>.AddListener(GameEvent.HERO_TURN, OnHeroTurn);
-        _guiStateChart = StateChartFactory.GetSCInterface(this);
+        _guiStateChart = StateChartFactory.GetInterfaceSC(this, GUICamera);
         //AbilityBar.SetActive(false);
     }
 
@@ -97,7 +99,7 @@ public class GUIController : MonoBehaviour
     /// </summary>
     public void DisactivateAbility()
     {
-        TurnOnSelectCircles(false);
+        TurnOffAllSelectCircles();
         SelectedAbility = null;
         SelectedTarget = null;
         SelectFrame.SetActive(false);

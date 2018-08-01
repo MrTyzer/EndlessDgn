@@ -8,18 +8,24 @@
         /// <summary>
         /// метод, переводящий стейтмашину в состояние <paramref name="nextState"/> 
         /// </summary>
-        /// <param name="noExit">
-        /// При true - не вызывает OnExit предыдущего стейта
+        /// <param name="exitExt">
+        /// при true - вызывает расширение для метода OnExit
         /// </param>
-        void SwitchState(States nextState, bool noExit = false);
+        /// <param name="enterExt">
+        /// при true - вызывает расширение для метода OnEnter
+        /// </param>
+        void SwitchState(States nextState, bool exitExt = false, bool enterExt = false);
 
         /// <summary>
         /// метод, переводящий стейтмашину в предыдущее состояние
         /// </summary>
-        /// <param name="noEnter">
-        /// При true - не вызывает OnEnter родителя
+        /// <param name="exitExt">
+        /// при true - вызывает расширение для метода OnExit
         /// </param>
-        void BackToParent(bool noEnter = false);
+        /// <param name="enterExt">
+        /// при true - вызывает расширение для метода OnEnter
+        /// </param>
+        void BackToParent(bool exitExt = false, bool enterExt = false);
     }
 }
 
