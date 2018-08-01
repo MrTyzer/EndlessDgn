@@ -13,7 +13,7 @@ public static class StateChartFactory
     public static IStateChart GetInterfaceSC(GUIController controller, Camera camera)
     {
         State noInterface = new NoInterface(null, States.NoInterface, controller);
-        State idle = new Idle(noInterface, States.Idle, controller);
+        State idle = new Idle(noInterface, States.Idle, controller, camera);
         State selectTarget = new SelectTarget(idle, States.SelectTarget, controller, camera);
         State takeStats = new TakeStats(idle, States.TakeStats, controller);
 

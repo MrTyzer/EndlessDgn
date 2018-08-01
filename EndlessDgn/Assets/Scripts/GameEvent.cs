@@ -1,6 +1,6 @@
 ﻿public static class GameEvent
 {
-    public const string HP_BARS_CON = "HP_BAR_CON";
+    public const string HP_BARS_CONNECT = "HP_BARS_CONNECT";
     public const string ABILITY_INFO = "ABILITY_INFO";
     public const string ATTACK_RESULT_INFO = "ATTACK_RESULT_INFO";
     public const string ENEMY_HIT = "ENEMY_HIT";
@@ -9,6 +9,7 @@
     public const string ATTACK_MOMENT = "ATTACK_MOMENT";
     public const string UPDATE_ENERGY_BARS = "UPDATE_ENERGY_BARS";
     public const string ON_ENEMY_TURN = "ON_ENEMY_TURN";
+    public const string ABILITY_BUTTON_CLICK = "ABILITY_BUTTON_CLICK";
 
     //Input events
     public const string ON_LEFT_MOUSE_BUTTON_DOWN = "LEFT_MOUSE_BUTTON_DOWN";

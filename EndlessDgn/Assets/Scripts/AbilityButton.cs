@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using StateMachine;
 using Enums;
 
 public class AbilityButton : MonoBehaviour
@@ -10,7 +11,7 @@ public class AbilityButton : MonoBehaviour
     public GameObject MowingWindow;
     public Image Icon;
 
-    public GUIController GUICountrollerScript;
+    public GUIController GUIControllerScript;
 
     private Ability _abilityRef;
 
@@ -52,10 +53,11 @@ public class AbilityButton : MonoBehaviour
 
     public void OnClick()
     {
-        GUIController.SelectionLock = true;
-        SelectFrame.transform.position = transform.position;
+        Messenger.Broadcast(GameEvent.ABILITY_BUTTON_CLICK);
+        //GUIController.SelectionLock = true;
         SelectFrame.SetActive(true);
-        GUICountrollerScript.SetAbility(_abilityRef);
+        SelectFrame.transform.position = transform.position;
+        GUIControllerScript.SetAbility(_abilityRef);
     }
 
 }

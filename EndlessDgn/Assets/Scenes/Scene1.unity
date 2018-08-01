@@ -2742,6 +2742,7 @@ MonoBehaviour:
   AbilityBar: {fileID: 300757724}
   SelectionCirclePrefab: {fileID: 0}
   GUICamera: {fileID: 634258147}
+  StatsWindow: {fileID: 118747772}
   AbilityButtons:
   - {fileID: 1890561812}
   - {fileID: 1168408827}
@@ -3510,6 +3511,26 @@ Prefab:
     - target: {fileID: 114373315263915050, guid: c894ca87934207142ac765cf8376af5a,
         type: 2}
       propertyPath: GUICountrollerScript
+      value: 
+      objectReference: {fileID: 1119601453}
+    - target: {fileID: 114147363344148256, guid: c894ca87934207142ac765cf8376af5a,
+        type: 2}
+      propertyPath: GUIControllerScript
+      value: 
+      objectReference: {fileID: 1119601453}
+    - target: {fileID: 114057384163854376, guid: c894ca87934207142ac765cf8376af5a,
+        type: 2}
+      propertyPath: GUIControllerScript
+      value: 
+      objectReference: {fileID: 1119601453}
+    - target: {fileID: 114670958715692090, guid: c894ca87934207142ac765cf8376af5a,
+        type: 2}
+      propertyPath: GUIControllerScript
+      value: 
+      objectReference: {fileID: 1119601453}
+    - target: {fileID: 114373315263915050, guid: c894ca87934207142ac765cf8376af5a,
+        type: 2}
+      propertyPath: GUIControllerScript
       value: 
       objectReference: {fileID: 1119601453}
     m_RemovedComponents: []

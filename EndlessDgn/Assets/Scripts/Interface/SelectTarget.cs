@@ -9,6 +9,7 @@ public class SelectTarget : InterfaceState
 
     public SelectTarget(State parent, States name, GUIController mainController, Camera camera) : base(parent, name, mainController)
     {
+        _camera = camera;
     }
 
     public override void OnEnter()
@@ -43,7 +44,6 @@ public class SelectTarget : InterfaceState
 
     public override void OnEnterExt()
     {
-        throw new System.NotImplementedException();
     }
 
     public override void OnExit()
@@ -53,6 +53,5 @@ public class SelectTarget : InterfaceState
 
     public override void OnExitExt()
     {
-        throw new System.NotImplementedException();
     }
 }

@@ -45,7 +45,7 @@ namespace StateMachine
 
         #region IStateMashine methods
 
-        public void SwitchState(States nextState, bool exitExt = false, bool enterExt = false)
+        public void SwitchState(States nextState, bool exitExt = true, bool enterExt = true)
         {
             if (_currentState.ChildStates.ContainsKey(nextState))
             {
@@ -65,7 +65,7 @@ namespace StateMachine
             }
         }
 
-        public void BackToParent(bool exitExt = false, bool enterExt = false)
+        public void BackToParent(bool exitExt = true, bool enterExt = true)
         {
             if (_currentState.ParentState != null)
             {

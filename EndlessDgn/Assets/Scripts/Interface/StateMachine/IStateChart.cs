@@ -14,7 +14,7 @@
         /// <param name="enterExt">
         /// при true - вызывает расширение для метода OnEnter
         /// </param>
-        void SwitchState(States nextState, bool exitExt = false, bool enterExt = false);
+        void SwitchState(States nextState, bool exitExt = true, bool enterExt = true);
 
         /// <summary>
         /// метод, переводящий стейтмашину в предыдущее состояние
@@ -25,7 +25,7 @@
         /// <param name="enterExt">
         /// при true - вызывает расширение для метода OnEnter
         /// </param>
-        void BackToParent(bool exitExt = false, bool enterExt = false);
+        void BackToParent(bool exitExt = true, bool enterExt = true);
     }
 }
 

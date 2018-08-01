@@ -48,7 +48,7 @@ public class Game : MonoBehaviour
             h.RefreshStats();
         }
         RoomShow(_curRoom);
-        Messenger<RoomType>.Broadcast(GameEvent.HP_BARS_CON, _curRoom);
+        Messenger<RoomType>.Broadcast(GameEvent.HP_BARS_CONNECT, _curRoom);
     }
 
     /// <summary>

@@ -8,20 +8,13 @@ public class GUIController : MonoBehaviour
     public GameObject AbilityBar;
     public GameObject SelectionCirclePrefab;
     public Camera GUICamera;
+    public GameObject StatsWindow;
     public AbilityButton[] AbilityButtons;
     
-
+    /// <summary>
+    /// машина состояний для интерфейса в бою
+    /// </summary>
     private IStateChart _guiStateChart;
-
-    /// <summary>
-    /// блок интерфейса при выборе таргета для атаки
-    /// </summary>
-    public static bool SelectionLock = false;
-
-    /// <summary>
-    /// блок интерфейса при исполнении анимации
-    /// </summary>
-    public static bool AnimationLock = false;
 
     public static RoomType CurrentRoom { get; private set; }
     public static Hero CurrentHero { get; private set; }
@@ -30,6 +23,7 @@ public class GUIController : MonoBehaviour
 
     void Awake()
     {
+        Messenger.AddListener(GameEvent.ABILITY_BUTTON_CLICK, OnAbilityButtonClick);
         Messenger<Hero, RoomType>.AddListener(GameEvent.HERO_TURN, OnHeroTurn);
         _guiStateChart = StateChartFactory.GetInterfaceSC(this, GUICamera);
         //AbilityBar.SetActive(false);
@@ -49,16 +43,12 @@ public class GUIController : MonoBehaviour
     {
         CurrentHero = hero;
         CurrentRoom = room;
-        _guiStateChart.SwitchState(States.Idle);
-        AnimationLock = false;
-        //AbilityBar.SetActive(true);
-        //int i = 0;
-        //foreach (Ability h in hero.SpellBook)
-        //{
-        //    AbilityButtons[i].gameObject.SetActive(true);
-        //    AbilityButtons[i].AbilityShow(h);
-        //    i++;
-        //}
+        _guiStateChart.SwitchState(States.Idle, false);
+    }
+
+    private void OnAbilityButtonClick()
+    {
+        _guiStateChart.SwitchState(States.SelectTarget, false);
     }
 
     /// <summary>
@@ -68,18 +58,18 @@ public class GUIController : MonoBehaviour
     {
         TurnOffAllSelectCircles();
         SelectedAbility = ability;
-        TurnOnSelectCircles(true);
+        TurnOnSelectCircles();
     }
 
     /// <summary>
-    /// включает и выключает круги выбора таргета под существами, соответствующие условиям используемой способности
+    /// включает круги выбора таргета под существами, соответствующие условиям используемой способности
     /// </summary>
-    public void TurnOnSelectCircles(bool fl)
+    public void TurnOnSelectCircles()
     {
         List<Creatures> availableTargets = SelectedAbility.GetAvailableTargets(CurrentRoom, CurrentHero);
         foreach (Creatures c in availableTargets)
         {
-            c.gameObject.GetComponentInChildren<SpriteRenderer>().enabled = fl;
+            c.gameObject.GetComponentInChildren<SpriteRenderer>().enabled = true;
         }
     }
 
@@ -103,7 +93,6 @@ public class GUIController : MonoBehaviour
         SelectedAbility = null;
         SelectedTarget = null;
         SelectFrame.SetActive(false);
-        SelectionLock = false;
     }
 
     /// <summary>
@@ -123,9 +112,8 @@ public class GUIController : MonoBehaviour
     /// </summary>
     private void UseAbility()
     {
+        _guiStateChart.BackToParent(true, false);
         _guiStateChart.BackToParent();
-        AnimationLock = true;
-        //AbilityBar.SetActive(false);
         SelectFrame.SetActive(false);
         SelectedAbility.UseAbility(SelectedTarget, CurrentHero, CurrentRoom);
         Messenger<GameObject>.Broadcast(GameEvent.ENEMY_HIT, SelectedTarget.gameObject);

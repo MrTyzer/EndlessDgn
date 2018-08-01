@@ -39,7 +39,7 @@ public class AnimController : MonoBehaviour
     private void Awake()
     {
         Messenger<Dictionary<Creatures, Ability.ResultOfAbility>>.AddListener(GameEvent.ABILITY_INFO, AbilityEventHandler);
-        Messenger<RoomType>.AddListener(GameEvent.HP_BARS_CON, OnRoomShow);
+        Messenger<RoomType>.AddListener(GameEvent.HP_BARS_CONNECT, OnRoomShow);
         Messenger.AddListener(GameEvent.ATTACK_MOMENT, OnAttackMoment);
         Messenger.AddListener(GameEvent.UPDATE_ENERGY_BARS, UpdateEnergyBars);
         QueueDmgPool = new Queue<GameObject>();
