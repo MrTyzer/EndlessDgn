@@ -2,11 +2,15 @@
 using System.Collections.Generic;
 using StateMachine;
 
+/// <summary>
+/// отвечает за отображение информации о ходе боя
+/// </summary>
 public class GUIController : MonoBehaviour
 {
+    public BattleInterfaceController MainBattleInterfaceController;
     public GameObject SelectFrame;
     public GameObject AbilityBar;
-    public GameObject SelectionCirclePrefab;
+    public GameObject SelectionCircle;
     public Camera GUICamera;
     public GameObject StatsWindow;
     public AbilityButton[] AbilityButtons;
@@ -24,31 +28,34 @@ public class GUIController : MonoBehaviour
     void Awake()
     {
         Messenger.AddListener(GameEvent.ABILITY_BUTTON_CLICK, OnAbilityButtonClick);
+        Messenger<RoomType>.AddListener(GameEvent.ROOM_INTERFACE_INIT, OnRoomShow);
         Messenger<Hero, RoomType>.AddListener(GameEvent.HERO_TURN, OnHeroTurn);
-        _guiStateChart = StateChartFactory.GetInterfaceSC(this, GUICamera);
-        //AbilityBar.SetActive(false);
+        _guiStateChart = StateChartFactory.GetInterfaceSC(this, MainBattleInterfaceController);
     }
 
-    /// <summary>
-    ///     Модель корлупа игры:
-    ///     Game через корутину запускает fight,
-    ///     затем fight 
-    ///     дает Broadcast интерфейсу. Интерфейс загружает ability bar и если ходит игрок запускает
-    ///     корутину выбора таргета, а если ходит моб, то выполняет выбор таргета через ИИ и запускает анимацию атаки
-    ///     и метод Turn, который изменит статы таргета в момент удара.
-    ///     Broadcast лучше давать из метода Turn, чтобы выгодно использовать полиморфизм
-    ///     Turn лучше сделать корутиной
-    /// </summary>
+    private void OnRoomShow(RoomType room)
+    {
+        CurrentRoom = room;
+    }
+
     private void OnHeroTurn(Hero hero, RoomType room)
     {
         CurrentHero = hero;
         CurrentRoom = room;
-        _guiStateChart.SwitchState(States.Idle, false);
+        AbilityBar.SetActive(true);
+        int i = 0;
+        foreach (Ability h in CurrentHero.SpellBook)
+        {
+            AbilityButtons[i].gameObject.SetActive(true);
+            AbilityButtons[i].AbilityShow(h);
+            i++;
+        }
+        _guiStateChart.SwitchState(States.Idle);
     }
 
     private void OnAbilityButtonClick()
     {
-        _guiStateChart.SwitchState(States.SelectTarget, false);
+        _guiStateChart.SwitchState(States.SelectTarget);
     }
 
     /// <summary>
@@ -56,7 +63,6 @@ public class GUIController : MonoBehaviour
     /// </summary>
     public void SetAbility(Ability ability)
     {
-        TurnOffAllSelectCircles();
         SelectedAbility = ability;
         TurnOnSelectCircles();
     }
@@ -96,7 +102,7 @@ public class GUIController : MonoBehaviour
     }
 
     /// <summary>
-    /// метод установки таргета(ввести ограничения, которые будут храниться в способностях)
+    /// метод установки таргета
     /// </summary>
     public void SetTarget(Creatures target)
     {
@@ -112,8 +118,8 @@ public class GUIController : MonoBehaviour
     /// </summary>
     private void UseAbility()
     {
-        _guiStateChart.BackToParent(true, false);
-        _guiStateChart.BackToParent();
+        AbilityBar.SetActive(false);
+        _guiStateChart.SwitchState(States.NoInterface);
         SelectFrame.SetActive(false);
         SelectedAbility.UseAbility(SelectedTarget, CurrentHero, CurrentRoom);
         Messenger<GameObject>.Broadcast(GameEvent.ENEMY_HIT, SelectedTarget.gameObject);

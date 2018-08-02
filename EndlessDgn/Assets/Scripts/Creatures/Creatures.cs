@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 using Enums;
 
@@ -56,7 +55,7 @@ public abstract class Creatures : MonoBehaviour, IStats
             Alive = true;
     }
 
-    public abstract void StatBuilder();
+    protected abstract void StatBuilder();
     public abstract string ShowStats();
-    public abstract void Turn(RoomType Room);
+    public abstract void Turn();
 }

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Enums;
 
-public class Spider : Monsters
+public class Spider : Monster
 {
     public void Awake()
     {
@@ -16,7 +16,7 @@ public class Spider : Monsters
         Alive = true;
     }
 
-    public override void StatBuilder()
+    protected override void StatBuilder()
     {
         ResultStats = new Dictionary<Stats, Stat>();
         ResultStats[Stats.TurnLine] = new Stat(Stats.TurnLine, 0);

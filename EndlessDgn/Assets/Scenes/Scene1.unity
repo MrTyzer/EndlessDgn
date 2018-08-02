@@ -1296,7 +1296,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 507953827}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Health bars
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2649,7 +2649,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1025028981}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: DamageWindows
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2738,6 +2738,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ee832b4bee88d244ab6258e2bd762b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MainMouseController: {fileID: 1119601452}
   SelectFrame: {fileID: 121208945}
   AbilityBar: {fileID: 300757724}
   SelectionCirclePrefab: {fileID: 0}

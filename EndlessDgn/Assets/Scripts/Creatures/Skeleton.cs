@@ -1,9 +1,8 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 using Enums;
 
-public class Skeleton : Monsters
+public class Skeleton : Monster
 {
     public void Awake()
     {
@@ -16,7 +15,7 @@ public class Skeleton : Monsters
         Alive = true;
     }
 
-    public override void StatBuilder()
+    protected override void StatBuilder()
     {
         ResultStats = new Dictionary<Stats, Stat>();
         ResultStats[Stats.TurnLine] = new Stat(Stats.TurnLine, 0);
@@ -32,7 +31,7 @@ public class Skeleton : Monsters
 
     public override void Turn(RoomType room)
     {
-        Ability selectedAbility = new NormalAttack(this);//дописать логику выбора способности монстром
+        Ability selectedAbility = new NormalAttack(this);
         List<Creatures> availableTargets = selectedAbility.GetAvailableTargets(room, this);
         Creatures target = availableTargets[0];
         foreach (Creatures c in availableTargets)
@@ -43,6 +42,6 @@ public class Skeleton : Monsters
 
         selectedAbility.UseAbility(target, this, room);
         Messenger<GameObject>.Broadcast(GameEvent.ENEMY_HIT, target.gameObject);
-        this.gameObject.GetComponent<Animator>().SetTrigger("StartAttack");
+        gameObject.GetComponent<Animator>().SetTrigger("StartAttack");
     }
 }

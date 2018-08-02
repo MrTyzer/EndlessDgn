@@ -14,21 +14,21 @@ public abstract class RoomType
     public int RoomExp { get; private set; }
     public string Name { get; protected set; }
     public List<Hero> Heroes { get; protected set; }
-    public List<Monsters> Mobs { get; protected set; }
+    public List<Monster> Mobs { get; protected set; }
     public List<Creatures> HeroesAndMobs { get; protected set; }
     public List<ItemType> Loot { get; protected set; }
 
     public RoomType()
     {
         Heroes = new List<Hero>();
-        Mobs = new List<Monsters>();
+        Mobs = new List<Monster>();
         HeroesAndMobs = new List<Creatures>();
         Loot = new List<ItemType>();
     }
 
     protected void GetRoomExp()
     {
-        foreach (Monsters m in Mobs)
+        foreach (Monster m in Mobs)
             RoomExp += m.expValue;
     }
 
@@ -40,7 +40,7 @@ public abstract class RoomType
         if (fl)
             return Result.Lose;
         fl = true;
-        foreach (Monsters m in Mobs)
+        foreach (Monster m in Mobs)
             fl &= !m.Alive;
         if (fl)
             return Result.Win;

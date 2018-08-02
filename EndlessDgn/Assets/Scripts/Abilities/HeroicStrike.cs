@@ -15,7 +15,7 @@ public class HeroicStrike : Ability
     public override List<Creatures> GetAvailableTargets(RoomType room, Creatures user)
     {
         List<Creatures> availableTargets = new List<Creatures>();
-        if (user is Monsters)
+        if (user is Monster)
         {
             foreach (Hero m in room.Heroes)
             {
@@ -25,7 +25,7 @@ public class HeroicStrike : Ability
         }
         else
         {
-            foreach (Monsters m in room.Mobs)
+            foreach (Monster m in room.Mobs)
             {
                 if (m.Alive)
                     availableTargets.Add(m);
@@ -36,9 +36,9 @@ public class HeroicStrike : Ability
 
     public override bool IsAvailable(Creatures user, Creatures target)
     {
-        if (user is Monsters && target is Hero)
+        if (user is Monster && target is Hero)
             return true;
-        else if (user is Hero && target is Monsters)
+        else if (user is Hero && target is Monster)
             return true;
         else
             return false;

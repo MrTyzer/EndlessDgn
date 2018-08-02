@@ -163,7 +163,7 @@ public class Hero : Creatures
     /// <summary>
     /// создает и инициализирует статы
     /// </summary>
-    public override void StatBuilder()
+    protected override void StatBuilder()
     {
         //создаем статы с начальными значениями для героев
         BasicStats[Stats.TurnLine] = 0;
@@ -182,10 +182,10 @@ public class Hero : Creatures
         SkillPoints = 0;
     }
 
-    public override void Turn(RoomType room)
+    public override void Turn()
     {
         if (Alive)
-            Messenger<Hero, RoomType>.Broadcast(GameEvent.HERO_TURN, this, room);//отсюда даем месседж интерфейсу
+            Messenger<Hero>.Broadcast(GameEvent.HERO_TURN, this);//отсюда даем месседж интерфейсу
         else
             Messenger.Broadcast(GameEvent.END_OF_TURN);
     }

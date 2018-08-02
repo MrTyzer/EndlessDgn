@@ -2,7 +2,7 @@
 using System.Collections;
 using Enums;
 
-public abstract class Monsters : Creatures
+public abstract class Monster : Creatures
 {
     public enum MonstersType
     {

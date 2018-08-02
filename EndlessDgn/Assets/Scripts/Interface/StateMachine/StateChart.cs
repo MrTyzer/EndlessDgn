@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace StateMachine
 {
@@ -37,7 +36,6 @@ namespace StateMachine
 
         public void RemoveState(States name, State state)
         {
-            _states[name].ParentState.ChildStates.Remove(name);//убираем стейт из коллекции дочерних стейтов у стейта-родителя
             _states.Remove(name);
         }
 
@@ -45,39 +43,13 @@ namespace StateMachine
 
         #region IStateMashine methods
 
-        public void SwitchState(States nextState, bool exitExt = true, bool enterExt = true)
+        public void SwitchState(States nextState)
         {
-            if (_currentState.ChildStates.ContainsKey(nextState))
+            if (_states.ContainsKey(nextState))
             {
                 _currentState.OnExit();
-                if (exitExt)
-                    _currentState.OnExitExt();
-
-                _currentState.ChildStates[nextState].OnEnter();
-                if (enterExt)
-                    _currentState.ChildStates[nextState].OnEnterExt();
-
+                _states[nextState].OnEnter();
                 _currentState = _states[nextState];
-            }
-            else
-            {
-                //TODO: прописать ошибку
-            }
-        }
-
-        public void BackToParent(bool exitExt = true, bool enterExt = true)
-        {
-            if (_currentState.ParentState != null)
-            {
-                _currentState.OnExit();
-                if (exitExt)
-                    _currentState.OnExitExt();
-
-                _currentState.ParentState.OnEnter();
-                if (enterExt)
-                    _currentState.ParentState.OnEnterExt();
-
-                _currentState = _currentState.ParentState;
             }
             else
             {

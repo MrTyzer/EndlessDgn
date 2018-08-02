@@ -10,7 +10,7 @@ public class OrdRoom : RoomType
         for (int i = 0; i < RoomSize; i++)
         {
             int randmob = Random.Range(0, 2);
-            Monsters mon;
+            Monster mon;
             switch (randmob)
             {
                 case 0:

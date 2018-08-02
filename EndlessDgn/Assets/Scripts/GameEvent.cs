@@ -1,6 +1,6 @@
 ﻿public static class GameEvent
 {
-    public const string HP_BARS_CONNECT = "HP_BARS_CONNECT";
+    public const string ROOM_INTERFACE_INIT = "ROOM_INTERFACE_INIT";
     public const string ABILITY_INFO = "ABILITY_INFO";
     public const string ATTACK_RESULT_INFO = "ATTACK_RESULT_INFO";
     public const string ENEMY_HIT = "ENEMY_HIT";

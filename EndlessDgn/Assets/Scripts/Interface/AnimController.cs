@@ -1,12 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 using Enums;
 
+/// <summary>
+/// отвечает за анимированный интерфейс
+/// </summary>
 public class AnimController : MonoBehaviour
 {
-    public Canvas UiLayer;
     public GameObject[] HpBars;
     public GameObject[] DamageWindowPool;
     public SimpleHealthBar[] EnergyBars;
@@ -38,10 +39,10 @@ public class AnimController : MonoBehaviour
 
     private void Awake()
     {
-        Messenger<Dictionary<Creatures, Ability.ResultOfAbility>>.AddListener(GameEvent.ABILITY_INFO, AbilityEventHandler);
-        Messenger<RoomType>.AddListener(GameEvent.HP_BARS_CONNECT, OnRoomShow);
+        Messenger<Dictionary<Creatures, Ability.ResultOfAbility>>.AddListener(GameEvent.ABILITY_INFO, OnAbilityInfo);
+        Messenger<RoomType>.AddListener(GameEvent.ROOM_INTERFACE_INIT, OnRoomShow);
         Messenger.AddListener(GameEvent.ATTACK_MOMENT, OnAttackMoment);
-        Messenger.AddListener(GameEvent.UPDATE_ENERGY_BARS, UpdateEnergyBars);
+        Messenger.AddListener(GameEvent.UPDATE_ENERGY_BARS, OnUpgradeEnergyBars);
         QueueDmgPool = new Queue<GameObject>();
         foreach (GameObject g in HpBars)
         {
@@ -55,7 +56,7 @@ public class AnimController : MonoBehaviour
         }
     }
 
-    private void UpdateEnergyBars()
+    private void OnUpgradeEnergyBars()
     {
         foreach (KeyValuePair<Creatures, SimpleHealthBar> c in _creaturesEnergy)
         {
@@ -128,7 +129,7 @@ public class AnimController : MonoBehaviour
         }
     }
 
-    private void AbilityEventHandler(Dictionary<Creatures, Ability.ResultOfAbility> abilityInfo)
+    private void OnAbilityInfo(Dictionary<Creatures, Ability.ResultOfAbility> abilityInfo)
     {
         _abilityInfo = abilityInfo;
     }

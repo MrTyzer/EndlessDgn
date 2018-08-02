@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 using Enums;
-using StateMachine;
 
+/// <summary>
+/// отвечает за ход игрового процесса
+/// </summary>
 public class Game : MonoBehaviour
 {
     public GameObject[] Positions;
@@ -13,8 +14,8 @@ public class Game : MonoBehaviour
     /// </summary>
     private Result _result;
     private RoomType _curRoom;
-    private bool _animationEnded = false;
     private List<Creatures> _roomCreatures;
+
     /// <summary>
     /// существо, ходящее в данный момент
     /// </summary>
@@ -47,8 +48,8 @@ public class Game : MonoBehaviour
         {
             h.RefreshStats();
         }
-        RoomShow(_curRoom);
-        Messenger<RoomType>.Broadcast(GameEvent.HP_BARS_CONNECT, _curRoom);
+        RoomShow(_curRoom.HeroesAndMobs);
+        Messenger<RoomType>.Broadcast(GameEvent.ROOM_INTERFACE_INIT, _curRoom);
     }
 
     /// <summary>
@@ -56,24 +57,23 @@ public class Game : MonoBehaviour
     /// </summary>
     public void TurnCalc(RoomType Room)
     {
-        //выставить блок на время исполнения анимации
         while (_crTurn == null)
         {
-            _crTurn = FillingTurnLine(_curRoom);
+            _crTurn = FillingTurnLine(_curRoom.HeroesAndMobs);
         }
-        _crTurn.Turn(_curRoom);
+        _crTurn.Turn();
         _crTurn = null;
     }
 
     /// <summary>
-    /// метод заполнения шкалы хода у существ
+    /// метод заполнения шкалы хода у существ. Возвращает существо, у которого подошла очередность хода (null, если таких нет)
     /// </summary>
-    private Creatures FillingTurnLine(RoomType room)
+    private Creatures FillingTurnLine(List<Creatures> heroesAndMobs)
     {
         //все существа с полной шкалой хода на данной итерации заполнения шкалы
         List<Creatures> creaturesToTurn = new List<Creatures>();
         
-        foreach (Creatures c in room.HeroesAndMobs)
+        foreach (Creatures c in heroesAndMobs)
         {
             if (c.GetResultStat(Stats.TurnLine) >= TurnLineMaxValue && c.Alive)
             {
@@ -94,7 +94,7 @@ public class Game : MonoBehaviour
             return crWithHighSpeed;
         }
 
-        foreach (Creatures c in room.HeroesAndMobs)
+        foreach (Creatures c in heroesAndMobs)
         {
             if (c.Alive)
                 c.ChangeResultStat(Stats.TurnLine, c.GetResultStat(Stats.Speed));
@@ -118,21 +118,20 @@ public class Game : MonoBehaviour
         }
     }
 
-    public void DestroyRoom()
+    private void DestroyRoom()
     {
-        foreach (Monsters m in _curRoom.Mobs)
+        foreach (Monster m in _curRoom.Mobs)
         {
             Destroy(m.gameObject);
         }
     }
 
-    public void RoomShow(RoomType room)
+    public void RoomShow(List<Creatures> heroesAndMobs)
     {
-        _roomCreatures = room.HeroesAndMobs;
-        for (int i = 0; i < room.HeroesAndMobs.Count; i++)
+        _roomCreatures = heroesAndMobs;
+        for (int i = 0; i < heroesAndMobs.Count; i++)
         {
-            room.HeroesAndMobs[i].transform.position = Positions[i].transform.position;
+            heroesAndMobs[i].transform.position = Positions[i].transform.position;
         }
     }
-
 }

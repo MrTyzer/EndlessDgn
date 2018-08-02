@@ -38,10 +38,10 @@ public class Creator : MonoBehaviour
         return hero.GetComponent<Hero>();
     }
 
-    private static Monsters CreateMonster(GameObject prefab)
+    private static Monster CreateMonster(GameObject prefab)
     {
         GameObject mob = Instantiate(prefab);
-        return mob.GetComponent<Monsters>();
+        return mob.GetComponent<Monster>();
     }
 
     /// <summary>

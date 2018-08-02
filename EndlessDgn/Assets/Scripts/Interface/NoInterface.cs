@@ -3,9 +3,10 @@ using StateMachine;
 using UnityEngine;
 
 
-public class NoInterface : InterfaceState
+public class NoInterface : BattleInterfaceState
 {
-    public NoInterface(State parent, States name, GUIController mainController) : base(parent, name, mainController)
+    public NoInterface(States name, GUIController mainController, BattleInterfaceController mouseController) 
+        : base(name, mainController, mouseController)
     {
     }
 
@@ -13,17 +14,7 @@ public class NoInterface : InterfaceState
     {
     }
 
-    public override void OnEnterExt()
-    {
-        
-    }
-
     public override void OnExit()
     {
-    }
-
-    public override void OnExitExt()
-    {
-        
     }
 }
