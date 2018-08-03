@@ -5,16 +5,16 @@ using Enums;
 
 public class NormalAttack : Ability
 {
-    public NormalAttack(Creatures owner) : base(owner)
+    public NormalAttack(Creature owner) : base(owner)
     {
         Name = Abilities.NormalAttack;
         Cooldown = 0;
         ALevel = 0;
     }
 
-    public override List<Creatures> GetAvailableTargets(RoomType room, Creatures user)
+    public override List<Creature> GetAvailableTargets(RoomType room, Creature user)
     {
-        List<Creatures> availableTargets = new List<Creatures>();
+        List<Creature> availableTargets = new List<Creature>();
         if (user is Monster)
         {
             foreach (Hero m in room.Heroes)
@@ -34,7 +34,7 @@ public class NormalAttack : Ability
         return availableTargets;
     }
 
-    public override bool IsAvailable(Creatures user, Creatures target)
+    public override bool IsAvailable(Creature user, Creature target)
     {
         if (user is Monster && target is Hero)
             return true;
@@ -55,40 +55,40 @@ public class NormalAttack : Ability
     }
 
 
-    public override void UseAbility(Creatures target, Creatures user, RoomType room)
+    public override void UseAbility(Creature target, Creature user, RoomType room)
     {
-        Dictionary<Creatures, ResultOfAbility> ResultsForAnim = AwakeResForAnim(room);
-        Creatures.AttackResult res = Attack(user, target);
+        Dictionary<Creature, ResultOfAbility> ResultsForAnim = AwakeResForAnim(room);
+        Creature.AttackResult res = Attack(user, target);
         
         int damage = Random.Range(user.GetResultStat(Stats.MinDmg), target.GetResultStat(Stats.MaxDmg) + 1);
         switch (res)
         {
-            case Creatures.AttackResult.Miss:
+            case Creature.AttackResult.Miss:
                 {
                     //miss
-                    ResultsForAnim[target] = new ResultOfAbility(0, Creatures.AttackResult.Miss);
+                    ResultsForAnim[target] = new ResultOfAbility(0, Creature.AttackResult.Miss);
                 }
                 break;
-            case Creatures.AttackResult.Glance:
+            case Creature.AttackResult.Glance:
                 {
                     target.ChangeResultStat(Stats.Hp, -damage / 2);
-                    ResultsForAnim[target] = new ResultOfAbility(-damage / 2, Creatures.AttackResult.Glance);
+                    ResultsForAnim[target] = new ResultOfAbility(-damage / 2, Creature.AttackResult.Glance);
                    //glance
                 }
                 break;
-            case Creatures.AttackResult.Hit:
+            case Creature.AttackResult.Hit:
                 {
                     target.ChangeResultStat(Stats.Hp, -damage);
-                    ResultsForAnim[target] = new ResultOfAbility(-damage, Creatures.AttackResult.Hit);
+                    ResultsForAnim[target] = new ResultOfAbility(-damage, Creature.AttackResult.Hit);
 
                     //hit
                 }
                 break;
-            case Creatures.AttackResult.Crit:
+            case Creature.AttackResult.Crit:
                 {
                     //crit
                     target.ChangeResultStat(Stats.Hp, -damage * 2);
-                    ResultsForAnim[target] = new ResultOfAbility(-damage * 2, Creatures.AttackResult.Crit);
+                    ResultsForAnim[target] = new ResultOfAbility(-damage * 2, Creature.AttackResult.Crit);
                 }
                 break;
             default:
@@ -96,6 +96,6 @@ public class NormalAttack : Ability
         }
 
         target.TestLive();
-        Messenger<Dictionary<Creatures, ResultOfAbility> >.Broadcast(GameEvent.ABILITY_INFO, ResultsForAnim);
+        Messenger<Dictionary<Creature, ResultOfAbility> >.Broadcast(GameEvent.ABILITY_INFO, ResultsForAnim);
     }
 }

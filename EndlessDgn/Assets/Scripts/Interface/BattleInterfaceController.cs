@@ -26,15 +26,15 @@ public class BattleInterfaceController : MonoBehaviour
         if (Physics.Raycast(ray1, out Hit))
         {
             GameObject hitObject = Hit.transform.gameObject;
-            if (hitObject.GetComponent<Creatures>() != null)
+            if (hitObject.GetComponent<Creature>() != null)
             {
-                GUICountrollerScript.SetTarget(hitObject.GetComponent<Creatures>());
+                GUICountrollerScript.SetTarget(hitObject.GetComponent<Creature>());
                 GUICountrollerScript.StatsWindow.transform.position = Input.mousePosition + new Vector3(180, 0, 0);
-                _stats.text = hitObject.GetComponent<Creatures>().ShowStats();
+                _stats.text = hitObject.GetComponent<Creature>().ShowStats();
                 GUICountrollerScript.StatsWindow.SetActive(true);
             }
         }
-        else
+        else 
         {
             GUICountrollerScript.StatsWindow.SetActive(false);
         }
@@ -47,7 +47,7 @@ public class BattleInterfaceController : MonoBehaviour
         if (Physics.Raycast(ray1, out Hit))
         {
             GameObject hitObject = Hit.transform.gameObject;
-            Creatures target = hitObject.GetComponent<Creatures>();
+            Creature target = hitObject.GetComponent<Creature>();
             if (target != null)
             {
                 if (GUIController.SelectedAbility.IsAvailable(GUIController.CurrentHero, target))

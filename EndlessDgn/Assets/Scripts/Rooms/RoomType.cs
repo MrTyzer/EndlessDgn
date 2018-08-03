@@ -15,14 +15,14 @@ public abstract class RoomType
     public string Name { get; protected set; }
     public List<Hero> Heroes { get; protected set; }
     public List<Monster> Mobs { get; protected set; }
-    public List<Creatures> HeroesAndMobs { get; protected set; }
+    public List<Creature> HeroesAndMobs { get; protected set; }
     public List<ItemType> Loot { get; protected set; }
 
     public RoomType()
     {
         Heroes = new List<Hero>();
         Mobs = new List<Monster>();
-        HeroesAndMobs = new List<Creatures>();
+        HeroesAndMobs = new List<Creature>();
         Loot = new List<ItemType>();
     }
 

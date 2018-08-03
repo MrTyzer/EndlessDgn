@@ -5,7 +5,7 @@ using Enums;
 
 public abstract class Ability
 {
-    public Creatures Owner { get; protected set; }
+    public Creature Owner { get; protected set; }
     public Abilities Name { get; protected set; }
     public int ALevel { set; get; }
     public int Cooldown { set; get; }
@@ -22,9 +22,9 @@ public abstract class Ability
         /// <summary>
         /// результат атаки (крит, хит...)
         /// </summary>
-        public Creatures.AttackResult Res { get; private set; }
+        public Creature.AttackResult Res { get; private set; }
 
-        public ResultOfAbility(int value, Creatures.AttackResult res)
+        public ResultOfAbility(int value, Creature.AttackResult res)
         {
             Value = value;
             Res = res;
@@ -35,19 +35,19 @@ public abstract class Ability
     /// метод возвращает возможные цели для способности
     /// </summary>
     /// <returns></returns>
-    public abstract List<Creatures> GetAvailableTargets(RoomType room, Creatures user);
+    public abstract List<Creature> GetAvailableTargets(RoomType room, Creature user);
 
     /// <summary>
     /// возвращает true, если способность можно использовать на данный таргет
     /// </summary>
-    public abstract bool IsAvailable(Creatures user, Creatures target);
+    public abstract bool IsAvailable(Creature user, Creature target);
 
-    public Ability(Creatures owner)
+    public Ability(Creature owner)
     {
         Owner = owner;
     }
 
-    public abstract void UseAbility(Creatures target, Creatures user, RoomType room);
+    public abstract void UseAbility(Creature target, Creature user, RoomType room);
 
     /// <summary>
     /// задает начальные значения словарю ResultsForAnim
@@ -59,19 +59,19 @@ public abstract class Ability
     /// словарь с нанесенным уроном или лечением по всем существам в комнате.
     /// Нужен для передачи в скрипт, управляющий анимацией.
     /// </returns>
-    public Dictionary<Creatures, ResultOfAbility> AwakeResForAnim(RoomType room)
+    public Dictionary<Creature, ResultOfAbility> AwakeResForAnim(RoomType room)
     {
-        Dictionary<Creatures, ResultOfAbility> res = new Dictionary<Creatures, ResultOfAbility>();
+        Dictionary<Creature, ResultOfAbility> res = new Dictionary<Creature, ResultOfAbility>();
 
-        foreach (Creatures c in room.HeroesAndMobs)
+        foreach (Creature c in room.HeroesAndMobs)
         {
-            res[c] = new ResultOfAbility(0, Creatures.AttackResult.Hit);
+            res[c] = new ResultOfAbility(0, Creature.AttackResult.Hit);
         }
 
         return res;
     }
 
-    public Creatures.AttackResult Attack(Creatures attacker, Creatures target, int BonusAcc = 0)
+    public Creature.AttackResult Attack(Creature attacker, Creature target, int BonusAcc = 0)
     {
         int delta = attacker.GetResultStat(Stats.Accuracy) - target.GetResultStat(Stats.Dodge) + BonusAcc;
         int ranNum = Random.Range(0, 101);
@@ -81,23 +81,23 @@ public abstract class Ability
         ranNum += (int)deltad;
         if ((ranNum >= 25) && (ranNum <= 50))
         {
-            return Creatures.AttackResult.Glance;
+            return Creature.AttackResult.Glance;
         }
         else
         {
             if ((ranNum > 50) && (ranNum <= 100))
             {
-                return Creatures.AttackResult.Hit;
+                return Creature.AttackResult.Hit;
             }
             else
             {
                 if (ranNum > 100)
                 {
-                    return Creatures.AttackResult.Crit;
+                    return Creature.AttackResult.Crit;
                 }
                 else
                 {
-                    return Creatures.AttackResult.Miss;
+                    return Creature.AttackResult.Miss;
                 }
             }
         }

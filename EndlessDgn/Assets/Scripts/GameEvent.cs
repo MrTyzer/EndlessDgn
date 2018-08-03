@@ -11,6 +11,10 @@
     public const string ON_ENEMY_TURN = "ON_ENEMY_TURN";
     public const string ABILITY_BUTTON_CLICK = "ABILITY_BUTTON_CLICK";
 
+    //AI events
+    public const string AI_INIT = "AI_INIT";
+    public const string AI_STRATEGY_SELECT = "AI_STRATEGY_SELECT";
+
     //Input events
     public const string ON_LEFT_MOUSE_BUTTON_DOWN = "LEFT_MOUSE_BUTTON_DOWN";
 }

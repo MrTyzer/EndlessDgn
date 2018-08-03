@@ -11,7 +11,7 @@ public class Spider : Monster
         SpellBook = new List<Ability>();
         SpellBook.Add(new NormalAttack(this));
         Name = "Spider";
-        _MType = MonstersType.spider;
+        MonsterType = MonstersType.spider;
         expValue = 5 + (3 * DgnInfo.DgnLvl);
         Alive = true;
     }
@@ -30,19 +30,8 @@ public class Spider : Monster
         ResultStats[Stats.MaxDmg] = new Stat(Stats.MaxDmg, 10 + delta + DmgLvlMod * DgnInfo.DgnLvl);
     }
 
-    public override void Turn(RoomType room)
+    public override Ability SelectAbility(RoomType room)
     {
-        Ability selectedAbility = new NormalAttack(this);//дописать логику выбора способности монстром
-        List<Creatures> availableTargets = selectedAbility.GetAvailableTargets(room, this);
-        Creatures target = availableTargets[0];
-        foreach (Creatures c in availableTargets)
-        {
-            if (c.GetResultStat(Stats.Hp) < target.GetResultStat(Stats.Hp))
-                target = c;
-        }
-
-        selectedAbility.UseAbility(target, this, room);
-        Messenger<GameObject>.Broadcast(GameEvent.ENEMY_HIT, target.gameObject);
-        this.gameObject.GetComponent<Animator>().SetTrigger("StartAttack");
+        return SpellBook.Find(x => x.Name == Abilities.NormalAttack);
     }
 }

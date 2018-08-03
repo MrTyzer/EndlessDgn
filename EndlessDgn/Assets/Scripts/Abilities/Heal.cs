@@ -6,16 +6,16 @@ using Enums;
 public class Heal : Ability
 {
 
-    public Heal(Creatures owner) : base(owner)
+    public Heal(Creature owner) : base(owner)
     {
         Name = Abilities.Heal;
         Cooldown = 2;
         ALevel = 0;
     }
 
-    public override List<Creatures> GetAvailableTargets(RoomType room, Creatures user)
+    public override List<Creature> GetAvailableTargets(RoomType room, Creature user)
     {
-        List<Creatures> availableTargets = new List<Creatures>();
+        List<Creature> availableTargets = new List<Creature>();
         if (user is Monster)
         {
             foreach (Monster m in room.Mobs)
@@ -35,7 +35,7 @@ public class Heal : Ability
         return availableTargets;
     }
 
-    public override bool IsAvailable(Creatures user, Creatures target)
+    public override bool IsAvailable(Creature user, Creature target)
     {
         if (user is Monster && target is Monster)
             return true;
@@ -55,21 +55,21 @@ public class Heal : Ability
         return ret;
     }
 
-    public override void UseAbility(Creatures target, Creatures healer, RoomType room)
+    public override void UseAbility(Creature target, Creature healer, RoomType room)
     {
-        Dictionary<Creatures, ResultOfAbility> ResultsForAnim = AwakeResForAnim(room);
+        Dictionary<Creature, ResultOfAbility> ResultsForAnim = AwakeResForAnim(room);
 
         //сделать проверку на макс хп
 
         int healHp = healer.GetResultStat(Stats.Stamina) * 2 + ALevel * 2 + Random.Range(3,9);
         target.ChangeResultStat(Stats.Hp, healHp);
         //if (target.DynamicStats[Creatures.Stats.Hp] > target)
-        ResultsForAnim[target] = new ResultOfAbility(healHp, Creatures.AttackResult.Hit);
+        ResultsForAnim[target] = new ResultOfAbility(healHp, Creature.AttackResult.Hit);
 
         //сделать отдельный результат атаки - хилл
 
         target.TestLive();
-        Messenger<Dictionary<Creatures, ResultOfAbility>>.Broadcast(GameEvent.ABILITY_INFO, ResultsForAnim);
+        Messenger<Dictionary<Creature, ResultOfAbility>>.Broadcast(GameEvent.ABILITY_INFO, ResultsForAnim);
     }
 
     

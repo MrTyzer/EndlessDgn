@@ -23,13 +23,13 @@ public class GUIController : MonoBehaviour
     public static RoomType CurrentRoom { get; private set; }
     public static Hero CurrentHero { get; private set; }
     public static Ability SelectedAbility { get; private set; }
-    public static Creatures SelectedTarget { get; private set; }
+    public static Creature SelectedTarget { get; private set; }
 
     void Awake()
     {
         Messenger.AddListener(GameEvent.ABILITY_BUTTON_CLICK, OnAbilityButtonClick);
         Messenger<RoomType>.AddListener(GameEvent.ROOM_INTERFACE_INIT, OnRoomShow);
-        Messenger<Hero, RoomType>.AddListener(GameEvent.HERO_TURN, OnHeroTurn);
+        Messenger<Hero>.AddListener(GameEvent.HERO_TURN, OnHeroTurn);
         _guiStateChart = StateChartFactory.GetInterfaceSC(this, MainBattleInterfaceController);
     }
 
@@ -38,10 +38,9 @@ public class GUIController : MonoBehaviour
         CurrentRoom = room;
     }
 
-    private void OnHeroTurn(Hero hero, RoomType room)
+    private void OnHeroTurn(Hero hero)
     {
         CurrentHero = hero;
-        CurrentRoom = room;
         AbilityBar.SetActive(true);
         int i = 0;
         foreach (Ability h in CurrentHero.SpellBook)
@@ -72,8 +71,8 @@ public class GUIController : MonoBehaviour
     /// </summary>
     public void TurnOnSelectCircles()
     {
-        List<Creatures> availableTargets = SelectedAbility.GetAvailableTargets(CurrentRoom, CurrentHero);
-        foreach (Creatures c in availableTargets)
+        List<Creature> availableTargets = SelectedAbility.GetAvailableTargets(CurrentRoom, CurrentHero);
+        foreach (Creature c in availableTargets)
         {
             c.gameObject.GetComponentInChildren<SpriteRenderer>().enabled = true;
         }
@@ -84,7 +83,7 @@ public class GUIController : MonoBehaviour
     /// </summary>
     public void TurnOffAllSelectCircles()
     {
-        foreach (Creatures c in CurrentRoom.HeroesAndMobs)
+        foreach (Creature c in CurrentRoom.HeroesAndMobs)
         {
             c.gameObject.GetComponentInChildren<SpriteRenderer>().enabled = false;
         }
@@ -104,7 +103,7 @@ public class GUIController : MonoBehaviour
     /// <summary>
     /// метод установки таргета
     /// </summary>
-    public void SetTarget(Creatures target)
+    public void SetTarget(Creature target)
     {
         if (target.Alive)
             SelectedTarget = target;

@@ -14,12 +14,17 @@ public class Game : MonoBehaviour
     /// </summary>
     private Result _result;
     private RoomType _curRoom;
-    private List<Creatures> _roomCreatures;
+    private List<Creature> _roomCreatures;
+
+    /// <summary>
+    /// класс с набором методов для управления ИИ
+    /// </summary>
+    private AISystem _aiSystem;
 
     /// <summary>
     /// существо, ходящее в данный момент
     /// </summary>
-    private Creatures _crTurn;
+    private Creature _crTurn;
 
     /// <summary>
     /// максимальное значение шкалы хода (при котором существо получает ход)
@@ -28,6 +33,7 @@ public class Game : MonoBehaviour
 
     private void Awake()
     {
+        _aiSystem = new AISystem();
         TurnLineMaxValue = 1000;
     }
 
@@ -49,6 +55,7 @@ public class Game : MonoBehaviour
             h.RefreshStats();
         }
         RoomShow(_curRoom.HeroesAndMobs);
+        Messenger<RoomType>.Broadcast(GameEvent.AI_INIT, _curRoom);
         Messenger<RoomType>.Broadcast(GameEvent.ROOM_INTERFACE_INIT, _curRoom);
     }
 
@@ -68,12 +75,12 @@ public class Game : MonoBehaviour
     /// <summary>
     /// метод заполнения шкалы хода у существ. Возвращает существо, у которого подошла очередность хода (null, если таких нет)
     /// </summary>
-    private Creatures FillingTurnLine(List<Creatures> heroesAndMobs)
+    private Creature FillingTurnLine(List<Creature> heroesAndMobs)
     {
         //все существа с полной шкалой хода на данной итерации заполнения шкалы
-        List<Creatures> creaturesToTurn = new List<Creatures>();
+        List<Creature> creaturesToTurn = new List<Creature>();
         
-        foreach (Creatures c in heroesAndMobs)
+        foreach (Creature c in heroesAndMobs)
         {
             if (c.GetResultStat(Stats.TurnLine) >= TurnLineMaxValue && c.Alive)
             {
@@ -83,8 +90,8 @@ public class Game : MonoBehaviour
 
         if (creaturesToTurn.Count != 0)
         {
-            Creatures crWithHighSpeed = creaturesToTurn[0];
-            foreach (Creatures c in creaturesToTurn)
+            Creature crWithHighSpeed = creaturesToTurn[0];
+            foreach (Creature c in creaturesToTurn)
             {
                 if (c.GetResultStat(Stats.Speed) > crWithHighSpeed.GetResultStat(Stats.Speed))
                     crWithHighSpeed = c;
@@ -94,7 +101,7 @@ public class Game : MonoBehaviour
             return crWithHighSpeed;
         }
 
-        foreach (Creatures c in heroesAndMobs)
+        foreach (Creature c in heroesAndMobs)
         {
             if (c.Alive)
                 c.ChangeResultStat(Stats.TurnLine, c.GetResultStat(Stats.Speed));
@@ -126,7 +133,7 @@ public class Game : MonoBehaviour
         }
     }
 
-    public void RoomShow(List<Creatures> heroesAndMobs)
+    public void RoomShow(List<Creature> heroesAndMobs)
     {
         _roomCreatures = heroesAndMobs;
         for (int i = 0; i < heroesAndMobs.Count; i++)

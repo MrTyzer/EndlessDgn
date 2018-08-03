@@ -1,9 +1,8 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 using Enums;
 
-public class Hero : Creatures
+public class Hero : Creature
 {
     /// <summary>
     /// инвентарь группы

@@ -10,7 +10,7 @@ public class Skeleton : Monster
         SpellBook = new List<Ability>();
         SpellBook.Add(new NormalAttack(this));
         Name = "Skeleton";
-        _MType = MonstersType.skeleton;
+        MonsterType = MonstersType.skeleton;
         expValue = 5 + (3 * DgnInfo.DgnLvl);
         Alive = true;
     }
@@ -29,19 +29,8 @@ public class Skeleton : Monster
         ResultStats[Stats.MaxDmg] = new Stat(Stats.MaxDmg, 12 + delta + DmgLvlMod * DgnInfo.DgnLvl);
     }
 
-    public override void Turn(RoomType room)
+    public override Ability SelectAbility(RoomType room)
     {
-        Ability selectedAbility = new NormalAttack(this);
-        List<Creatures> availableTargets = selectedAbility.GetAvailableTargets(room, this);
-        Creatures target = availableTargets[0];
-        foreach (Creatures c in availableTargets)
-        {
-            if (c.GetResultStat(Stats.Hp) < target.GetResultStat(Stats.Hp))
-                target = c;
-        }
-
-        selectedAbility.UseAbility(target, this, room);
-        Messenger<GameObject>.Broadcast(GameEvent.ENEMY_HIT, target.gameObject);
-        gameObject.GetComponent<Animator>().SetTrigger("StartAttack");
+        return SpellBook.Find(x => x.Name == Abilities.NormalAttack);
     }
 }

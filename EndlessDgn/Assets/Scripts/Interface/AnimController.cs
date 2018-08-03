@@ -25,21 +25,21 @@ public class AnimController : MonoBehaviour
     /// <summary>
     /// словарь с существами в комнате и соответствующие им хп бары
     /// </summary>
-    private Dictionary<Creatures, SimpleHealthBar> _creaturesHp;
+    private Dictionary<Creature, SimpleHealthBar> _creaturesHp;
 
     /// <summary>
     /// словарь с существами в комнате и соответствующие им energy bars
     /// </summary>
-    private Dictionary<Creatures, SimpleHealthBar> _creaturesEnergy = new Dictionary<Creatures, SimpleHealthBar>();
+    private Dictionary<Creature, SimpleHealthBar> _creaturesEnergy = new Dictionary<Creature, SimpleHealthBar>();
 
     /// <summary>
     /// информация о результатах приминения способности
     /// </summary>
-    private Dictionary<Creatures, Ability.ResultOfAbility> _abilityInfo = new Dictionary<Creatures, Ability.ResultOfAbility>();
+    private Dictionary<Creature, Ability.ResultOfAbility> _abilityInfo = new Dictionary<Creature, Ability.ResultOfAbility>();
 
     private void Awake()
     {
-        Messenger<Dictionary<Creatures, Ability.ResultOfAbility>>.AddListener(GameEvent.ABILITY_INFO, OnAbilityInfo);
+        Messenger<Dictionary<Creature, Ability.ResultOfAbility>>.AddListener(GameEvent.ABILITY_INFO, OnAbilityInfo);
         Messenger<RoomType>.AddListener(GameEvent.ROOM_INTERFACE_INIT, OnRoomShow);
         Messenger.AddListener(GameEvent.ATTACK_MOMENT, OnAttackMoment);
         Messenger.AddListener(GameEvent.UPDATE_ENERGY_BARS, OnUpgradeEnergyBars);
@@ -58,9 +58,9 @@ public class AnimController : MonoBehaviour
 
     private void OnUpgradeEnergyBars()
     {
-        foreach (KeyValuePair<Creatures, SimpleHealthBar> c in _creaturesEnergy)
+        foreach (KeyValuePair<Creature, SimpleHealthBar> c in _creaturesEnergy)
         {
-            c.Value.UpdateBar(c.Key.GetComponent<Creatures>().GetResultStat(Stats.TurnLine),
+            c.Value.UpdateBar(c.Key.GetComponent<Creature>().GetResultStat(Stats.TurnLine),
                          Game.TurnLineMaxValue);
         }
     }
@@ -70,7 +70,7 @@ public class AnimController : MonoBehaviour
     /// </summary>
     private void OnAttackMoment()
     {
-        foreach (KeyValuePair<Creatures, Ability.ResultOfAbility> c in _abilityInfo)
+        foreach (KeyValuePair<Creature, Ability.ResultOfAbility> c in _abilityInfo)
         {
             if (c.Value.Value != 0)
             {
@@ -87,7 +87,7 @@ public class AnimController : MonoBehaviour
             }
 
             //отобразить промахи
-            if (c.Value.Res == Creatures.AttackResult.Miss)
+            if (c.Value.Res == Creature.AttackResult.Miss)
             {
                 GameObject movWindow = QueueDmgPool.Dequeue();
                 movWindow.GetComponentInChildren<Text>().color = new Color(100, 0, 0);
@@ -99,18 +99,18 @@ public class AnimController : MonoBehaviour
 
         }
 
-        foreach (KeyValuePair<Creatures, SimpleHealthBar> c in _creaturesHp)
+        foreach (KeyValuePair<Creature, SimpleHealthBar> c in _creaturesHp)
         {
-            c.Value.UpdateBar(c.Key.GetComponent<Creatures>().GetResultStat(Stats.Hp),
-                        c.Key.GetComponent<Creatures>().GetResultStat(Stats.MaxHp));
+            c.Value.UpdateBar(c.Key.GetComponent<Creature>().GetResultStat(Stats.Hp),
+                        c.Key.GetComponent<Creature>().GetResultStat(Stats.MaxHp));
         }
         
     }
 
     private void OnRoomShow(RoomType room)
     {
-        _creaturesHp = new Dictionary<Creatures, SimpleHealthBar>();
-        _creaturesEnergy = new Dictionary<Creatures, SimpleHealthBar>();
+        _creaturesHp = new Dictionary<Creature, SimpleHealthBar>();
+        _creaturesEnergy = new Dictionary<Creature, SimpleHealthBar>();
         for (int i = 0; i < room.HeroesAndMobs.Count; i++)
         {
             _creaturesHp[room.HeroesAndMobs[i]] = _hpBarScript[i];
@@ -122,14 +122,14 @@ public class AnimController : MonoBehaviour
             EnergyBars[i].UpdateBar(room.HeroesAndMobs[i].GetResultStat(Stats.TurnLine),
                 Game.TurnLineMaxValue);
         }
-        foreach (KeyValuePair<Creatures, SimpleHealthBar> c in _creaturesHp)
+        foreach (KeyValuePair<Creature, SimpleHealthBar> c in _creaturesHp)
         {
-            c.Value.UpdateBar(c.Key.GetComponent<Creatures>().GetResultStat(Stats.Hp),
-                        c.Key.GetComponent<Creatures>().GetResultStat(Stats.MaxHp));
+            c.Value.UpdateBar(c.Key.GetComponent<Creature>().GetResultStat(Stats.Hp),
+                        c.Key.GetComponent<Creature>().GetResultStat(Stats.MaxHp));
         }
     }
 
-    private void OnAbilityInfo(Dictionary<Creatures, Ability.ResultOfAbility> abilityInfo)
+    private void OnAbilityInfo(Dictionary<Creature, Ability.ResultOfAbility> abilityInfo)
     {
         _abilityInfo = abilityInfo;
     }

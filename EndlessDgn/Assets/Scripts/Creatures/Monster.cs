@@ -2,14 +2,14 @@
 using System.Collections;
 using Enums;
 
-public abstract class Monster : Creatures
+public abstract class Monster : Creature
 {
-    public enum MonstersType
-    {
-        skeleton,
-        spider
-    }
-    public MonstersType _MType { get; protected set; }
+    /// <summary>
+    /// Тип монстра
+    /// </summary>
+    public MonstersType MonsterType { get; protected set; }
+
+    public abstract Ability SelectAbility(RoomType room);
 
     public override string ShowStats()
     {
@@ -21,6 +21,12 @@ public abstract class Monster : Creatures
         Ret += "Dodge = " + GetResultStat(Stats.Dodge) + "\n";
         return Ret;
     }
+
+    public override void Turn()
+    {
+        Messenger<Monster>.Broadcast(GameEvent.AI_STRATEGY_SELECT, this);
+    }
+
     /// <summary>
     /// опыт, получаемый с монстра
     /// </summary>
@@ -28,13 +34,13 @@ public abstract class Monster : Creatures
     /// <summary>
     /// модификатор acc/dodge per DgnLvl
     /// </summary>
-    public static int ADLvlMod = 4;
+    protected static int ADLvlMod = 4;
     /// <summary>
     /// модификатор Dmg per DgnLvl
     /// </summary>
-    public static int DmgLvlMod = 3;
+    protected static int DmgLvlMod = 3;
     /// <summary>
     /// модификатор Hp per DgnLvl
     /// </summary>
-    public static int HpLvlMod = 9;
+    protected static int HpLvlMod = 9;
 }

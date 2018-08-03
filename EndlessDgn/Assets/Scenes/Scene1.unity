@@ -2738,10 +2738,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ee832b4bee88d244ab6258e2bd762b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MainMouseController: {fileID: 1119601452}
+  MainBattleInterfaceController: {fileID: 1119601452}
   SelectFrame: {fileID: 121208945}
   AbilityBar: {fileID: 300757724}
-  SelectionCirclePrefab: {fileID: 0}
+  SelectionCircle: {fileID: 0}
   GUICamera: {fileID: 634258147}
   StatsWindow: {fileID: 118747772}
   AbilityButtons:
@@ -2775,7 +2775,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f46e50126b4302344b4e25f6ab77de06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UiLayer: {fileID: 1954757214}
   HpBars:
   - {fileID: 843162741}
   - {fileID: 585146576}

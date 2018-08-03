@@ -22,7 +22,7 @@ public class AttackEventHandler : MonoBehaviour
 
     public void AttackEvent()
     {
-        if (_enemy.gameObject.GetComponent<Creatures>().Alive)
+        if (_enemy.gameObject.GetComponent<Creature>().Alive)
             _enemy.SetTrigger("TakeDamage");
         else
             _enemy.SetTrigger("Death");

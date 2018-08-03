@@ -1,5 +1,12 @@
 ﻿namespace Enums
 {
+
+    public enum MonstersType
+    {
+        skeleton,
+        spider
+    }
+
     public enum Abilities
     {
         NormalAttack,
